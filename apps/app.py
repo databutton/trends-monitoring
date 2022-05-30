@@ -21,6 +21,9 @@ def trends():
         graphed_df = pd.DataFrame(
             {"Date": hashtag_df["start_time"].to_list(), "Value": hashtag_df["tweet_count"].to_list()}
         )
+
+        graphed_df["Date"] = pd.to_datetime(graphed_df["Date"])
+
         graphed_df = graphed_df.resample("h", on="Date").Value.sum()
 
         st.subheader(f"Tweet count: #{hashtag}")
