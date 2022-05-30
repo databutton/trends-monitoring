@@ -27,7 +27,7 @@ def fetch_tweet_stats(hashtag: str, start_time_utc: str, end_time_utc: str):
 
 
 def scrape_twitter(start_time_utc: str, end_time_utc: str):
-    df = db.dataframes.get(TWEET_DATA_KEY)
+    df = db.storage.dataframes.get(TWEET_DATA_KEY)
 
     print(f"Fetching tweets from (incl) {start_time_utc} to (excl) {start_time_utc}")
     regex = r"\d{4}-\d{2}-\d{2}"
@@ -70,10 +70,10 @@ def scrape_twitter(start_time_utc: str, end_time_utc: str):
             else:
                 print(f"ID: {id} already in dataframe. Skipping")
 
-    db.dataframes.put(df, TWEET_DATA_KEY)
+    db.storage.dataframes.put(df, TWEET_DATA_KEY)
 
 
-@db.repeat_every(seconds=60 * 60 * 12)  # Every twelve hours
+@db.jobs.repeat_every(seconds=60 * 60 * 12)  # Every twelve hours
 def twitter_job():
     start_of_day_utc, end_of_day_utc = timestamp_start_of_day()
     scrape_twitter(start_time_utc=start_of_day_utc, end_time_utc=end_of_day_utc)

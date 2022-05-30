@@ -5,7 +5,7 @@ import pandas as pd
 from lib.config import HASHTAG_LIST, TWEET_DATA_KEY
 
 
-@db.streamlit("/trends", name="Tech Trends")
+@db.apps.streamlit("/trends", name="Tech Trends")
 def trends():
     st.set_page_config(
         page_title="Tech Trends",
@@ -13,7 +13,7 @@ def trends():
         layout="wide",
     )
 
-    df = db.dataframes.get(TWEET_DATA_KEY)
+    df = db.storage.dataframes.get(TWEET_DATA_KEY)
 
     for hashtag in HASHTAG_LIST:
         hashtag_df = df[(df["start_time"] > "2022-05-01") & (df["hashtag"] == hashtag)]

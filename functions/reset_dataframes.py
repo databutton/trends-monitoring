@@ -9,7 +9,7 @@ from lib.config import TWEET_DATA_KEY
 
 def main():
     df = pd.DataFrame(data=None)
-    db.dataframes.put(df, TWEET_DATA_KEY)
+    db.storage.dataframes.put(df, TWEET_DATA_KEY)
 
 
 if __name__ == "__main__":
