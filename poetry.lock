@@ -260,7 +260,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 
 [[package]]
 name = "databutton"
-version = "0.10.1"
+version = "0.11.0"
 description = "The CLI for databutton.com"
 category = "main"
 optional = false
@@ -1605,7 +1605,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "73205d16c273bceea25639637c8d8ef8434b2b382427cfc22cbe23c556b6026b"
+content-hash = "0094358558265b70234c7c059c2aaf5270cf99b76f9a40fb2f234bc7d97bd886"
 
 [metadata.files]
 about-time = [
@@ -1780,8 +1780,8 @@ colorama = [
     {file = "colorama-0.4.4.tar.gz", hash = "sha256:5941b2b48a20143d2267e95b1c2a7603ce057ee39fd88e7329b0c292aa16869b"},
 ]
 databutton = [
-    {file = "databutton-0.10.1-py3-none-any.whl", hash = "sha256:8aaa76fdfeeb359c13a73134197b35ef824968ab0c16b90dd4cb5971e75aa705"},
-    {file = "databutton-0.10.1.tar.gz", hash = "sha256:35a71907d6df1d85ca66b4aaa9c2860f19cad0080e4d21cbbe6d9466168d243f"},
+    {file = "databutton-0.11.0-py3-none-any.whl", hash = "sha256:4f39111ed07971afe2a56e7712d5acb4892fb1649c20ab34cf16691bb4e7c37d"},
+    {file = "databutton-0.11.0.tar.gz", hash = "sha256:50a640815cde9530e8a116a85ccb92bca29eaa8e2360ad0d756346c3ffdb135e"},
 ]
 databutton-web = [
     {file = "databutton_web-0.8.0-py3-none-any.whl", hash = "sha256:f989583d1c4f9fa0a3b56e43664cfcb965fa48e068ae2b9a09246d21f322a61d"},
