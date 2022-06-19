@@ -2,7 +2,7 @@ import databutton as db
 import streamlit as st
 import pandas as pd
 
-from lib.config import HASHTAG_LIST, TWEET_DATA_KEY
+from config.config import HASHTAG_LIST, TWEET_DATA_KEY
 
 
 @db.apps.streamlit("/trends", name="Tech Trends")

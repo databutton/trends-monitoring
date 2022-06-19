@@ -8,7 +8,7 @@ import databutton as db
 import pandas as pd
 import requests
 from decouple import config
-from lib.config import HASHTAG_LIST, TWEET_DATA_KEY
+from config.config import HASHTAG_LIST, TWEET_DATA_KEY
 
 bearer_token = config("TWITTER_BEARER_TOKEN")
 
@@ -35,6 +35,8 @@ def scrape_twitter(start_time_utc: str, end_time_utc: str):
     for hashtag in HASHTAG_LIST:
         print(f"Fetching stats for hashtag: {hashtag}")
         stats = fetch_tweet_stats(hashtag=hashtag, start_time_utc=start_time_utc, end_time_utc=end_time_utc)
+
+        print(stats)
 
         for item in stats["data"]:
             id = f"{hashtag}-{item['start']}"
@@ -81,12 +83,12 @@ def twitter_job():
 
 if __name__ == "__main__":
     date_ranges = [
-        ["2022-05-24T00:00:00.000Z", "2022-05-25T00:00:00.000Z"],
-        ["2022-05-25T00:00:00.000Z", "2022-05-26T00:00:00.000Z"],
-        ["2022-05-26T00:00:00.000Z", "2022-05-27T00:00:00.000Z"],
-        ["2022-05-27T00:00:00.000Z", "2022-05-28T00:00:00.000Z"],
-        ["2022-05-28T00:00:00.000Z", "2022-05-29T00:00:00.000Z"],
-        ["2022-05-29T00:00:00.000Z", "2022-05-30T00:00:00.000Z"],
+        ["2022-06-13T00:00:00.000Z", "2022-06-14T00:00:00.000Z"],
+        ["2022-06-14T00:00:00.000Z", "2022-06-15T00:00:00.000Z"],
+        ["2022-06-15T00:00:00.000Z", "2022-06-16T00:00:00.000Z"],
+        ["2022-06-16T00:00:00.000Z", "2022-06-17T00:00:00.000Z"],
+        ["2022-06-17T00:00:00.000Z", "2022-06-18T00:00:00.000Z"],
+        ["2022-06-18T00:00:00.000Z", "2022-06-19T00:00:00.000Z"],
     ]
 
     for row in date_ranges:
