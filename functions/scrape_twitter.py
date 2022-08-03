@@ -1,16 +1,15 @@
-import sys
+from config.config import HASHTAG_LIST, TWEET_DATA_KEY
+import requests
+import pandas as pd
+import databutton as db
+from datetime import datetime, timedelta, timezone
 import re
+import sys
 
 sys.path.append(".")
-from datetime import datetime, timedelta, timezone
 
-import databutton as db
-import pandas as pd
-import requests
-from decouple import config
-from config.config import HASHTAG_LIST, TWEET_DATA_KEY
 
-bearer_token = config("TWITTER_BEARER_TOKEN")
+bearer_token = db.secrets.get('TWITTER_BEARER_TOKEN')
 
 
 def timestamp_start_of_day():
@@ -29,12 +28,14 @@ def fetch_tweet_stats(hashtag: str, start_time_utc: str, end_time_utc: str):
 def scrape_twitter(start_time_utc: str, end_time_utc: str):
     df = db.storage.dataframes.get(TWEET_DATA_KEY)
 
-    print(f"Fetching tweets from (incl) {start_time_utc} to (excl) {start_time_utc}")
+    print(
+        f"Fetching tweets from (incl) {start_time_utc} to (excl) {start_time_utc}")
     regex = r"\d{4}-\d{2}-\d{2}"
 
     for hashtag in HASHTAG_LIST:
         print(f"Fetching stats for hashtag: {hashtag}")
-        stats = fetch_tweet_stats(hashtag=hashtag, start_time_utc=start_time_utc, end_time_utc=end_time_utc)
+        stats = fetch_tweet_stats(
+            hashtag=hashtag, start_time_utc=start_time_utc, end_time_utc=end_time_utc)
 
         print(stats)
 
@@ -72,24 +73,18 @@ def scrape_twitter(start_time_utc: str, end_time_utc: str):
             else:
                 print(f"ID: {id} already in dataframe. Skipping")
 
-    db.storage.dataframes.put(df, TWEET_DATA_KEY)
+    # db.storage.dataframes.put(df, TWEET_DATA_KEY)
 
 
 @db.jobs.repeat_every(seconds=60 * 60 * 12)  # Every twelve hours
 def twitter_job():
     start_of_day_utc, end_of_day_utc = timestamp_start_of_day()
-    scrape_twitter(start_time_utc=start_of_day_utc, end_time_utc=end_of_day_utc)
+    scrape_twitter(start_time_utc=start_of_day_utc,
+                   end_time_utc=end_of_day_utc)
 
 
 if __name__ == "__main__":
-    date_ranges = [
-        ["2022-06-13T00:00:00.000Z", "2022-06-14T00:00:00.000Z"],
-        ["2022-06-14T00:00:00.000Z", "2022-06-15T00:00:00.000Z"],
-        ["2022-06-15T00:00:00.000Z", "2022-06-16T00:00:00.000Z"],
-        ["2022-06-16T00:00:00.000Z", "2022-06-17T00:00:00.000Z"],
-        ["2022-06-17T00:00:00.000Z", "2022-06-18T00:00:00.000Z"],
-        ["2022-06-18T00:00:00.000Z", "2022-06-19T00:00:00.000Z"],
-    ]
-
-    for row in date_ranges:
-        scrape_twitter(start_time_utc=row[0], end_time_utc=row[1])
+    scrape_twitter(
+        start_time_utc='2022-08-01T00:00:00.000Z',
+        end_time_utc='2022-08-02T00:00:00.000Z'
+    )
